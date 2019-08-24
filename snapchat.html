@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script>
+            const urlParams = new URLSearchParams(window.location.search);
+            var username = urlParams.get('username');
+            document.title = username !== null && username !== '' ? "Snapcode - " + username : "Snapcode Creator";
+    </script>
+    <link rel="stylesheet" href="mystyle.css">
+    <link rel="shortcut icon" href="snapchat.ico" type="image/x-icon" />
+</head>
+<body>
+    <style type="text/css">
+        body{
+            background-size: 200% 200%;
+            background-image: linear-gradient(to bottom right, rgb(255, 0, 76), rgb(255, 115, 0), rgb(0, 162, 255));
+            animation-name: bgGradient;
+            animation-duration: 8s;
+            animation-iteration-count: infinite;
+            animation-timing-function: linear;
+        }
+
+        #name{
+            font-family: Arial, Helvetica, sans-serif;
+            color: white;
+            margin-top: 10px;
+            font-size: 30px;
+            font-weight: 550;
+            text-shadow: 2px 2px 4px black,
+            2px -2px 4px black,
+            -2px 2px 4px black,
+            -2px -2px 4px black;
+        }
+
+        @keyframes bgGradient {
+            0% { background-position: 2.5% 2.5% }
+            50% { background-position: 92.5% 92.5% }
+	        100% { background-position: 2.5% 2.5% }
+        }
+
+        @keyframes textColorChange {
+            0% { color: rgb(245, 245, 245) ;
+            font-size: 25px; }
+            50% { color: rgb(115, 221, 101); 
+            font-size: 26px; }
+            100% { color: rgb(245, 245, 245);
+            font-size: 25px;}
+        }
+
+        #addText{
+            margin-top: 20px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-size: 25px;
+            text-shadow: 2px 2px 4px rgb(15, 15, 15),
+            2px -2px 2px rgb(15, 15, 15),
+            -2px 2px 2px rgb(15, 15, 15),
+            -2px -2px 2px rgb(15, 15, 15);
+            animation-name: textColorChange;
+            animation-duration: 2.5s;
+            animation-iteration-count: infinite;
+        }
+
+        .centered{
+            position: absolute;
+            margin: auto;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+        }
+
+        .snapchatImage{
+            max-width: 550px;
+            max-height: 550px;
+            min-width: 400px;
+            min-height: 400px;
+            text-align: center;
+        }
+
+        .snapchatImage img{
+            width: 80%;
+            height: 70%;
+        }
+
+        .contentwrapper
+        {
+            margin-top: 171px;
+            min-height: calc(100vh - 171px);
+        }
+        
+        #snapcodeCreatorInput{
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            outline: unset;
+            padding: 5px 40px 5px;
+            border: none;
+            text-align: center;
+            border-radius: 3px;
+            box-shadow: 2px 2px 5px black;
+        }
+
+        #snapcodeCreatorSubmit{
+            background-color: rgb(24, 24, 24);
+            margin: auto;
+            margin-top: 8px;
+            color: white;
+            display: block;
+            outline: unset;
+            padding: 5px 40px 5px;
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            font-weight: 530;
+            border: none;
+            border-radius: 3px;
+            text-align: center;
+            transition-duration: 0.5s;
+            box-shadow: 2px 2px 5px black;
+        }
+        #snapcodeCreatorSubmit:hover{
+            background-color: #FFFC00;
+            color: black;
+        }
+        
+        @keyframes logoShake {
+            0% { transform: rotate(0deg) }
+            25% { transform: rotate(-3deg) }
+            75% { transform: rotate(3deg) }
+            100% { transform: rotate(0deg) }
+        }
+
+        .logoShake{
+            animation-name: logoShake;
+            animation-duration: 0.2s;
+            animation-delay: 0.3s;
+            animation-iteration-count: 1;
+        }
+    </style>
+    <div class="contentwrapper">
+        <div class="centered snapchatImage"><img id="snapcode" class="logoShake" src="snapcode.svg">
+        <div id="name"></div>
+        <div id="addText"></div>
+    </div>
+    </div>
+    <script>
+        if(username !== '' && username !== null){
+            var snapcodeURL = "https://app.snapchat.com/web/deeplink/snapcode?username=" + username + "&type=SVG";
+            var snapcode = document.getElementById("snapcode");
+            snapcode.setAttribute("src", snapcodeURL);
+            var namediv = document.getElementById("name");
+            namediv.innerHTML = username;
+            var textDiv = document.getElementById("addText");
+            textDiv.innerHTML = "Snap or screenshot to add";
+        }else{
+            var snapcodeURL = "snapcode.svg";
+            var snapcode = document.getElementById("snapcode");
+            var namediv = document.getElementById("name");
+            namediv.innerHTML = "Snapcode Creator"
+            var form = document.createElement("form")
+            form.setAttribute("method", "get");
+            var input = document.createElement("input")
+            input.setAttribute("placeholder", "Username");
+            input.setAttribute("onfocus", "placeholder = ''")
+            input.setAttribute("onblur", "placeholder = 'Username'")
+            input.setAttribute("autocomplete", "off")
+            input.setAttribute("id", "snapcodeCreatorInput");
+            input.setAttribute("name", "username");
+            input.setAttribute("type", "text");
+            var submit = document.createElement("input")
+            submit.setAttribute("id", "snapcodeCreatorSubmit");
+            submit.setAttribute("type", "submit");
+            form.appendChild(input);
+            form.appendChild(submit);
+            namediv.appendChild(form);
+        }
+    </script>
+</body>
+</html>

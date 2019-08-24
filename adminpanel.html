@@ -1,0 +1,93 @@
+<div class="dropdowns">
+    <div class="dbFormText">Actiune</div>
+    <form action="" method="post">
+    <select id="actiune" name="actiune" onchange="return check();">
+        <option>Selecteaza actiunea</option>
+        <option value="addClasa">Adauga clasa</option>
+        <option value="addElev">Adauga elev</option>
+        <option value="addNota">Adauga nota</option>
+        <option value="addAbsenta">Adauga absenta</option>
+        <option value="addTeza">Adauga teza</option>
+        <option value="addStire">Adauga stire</option>
+        <option value="deleteClasa">Sterge clasa</option>
+        <option value="deleteElev">Sterge elev</option>
+        <option value="deleteNota">Sterge nota</option>
+        <option value="deleteAbsenta">Sterge absenta</option>
+        <option value="deleteTeza">Sterge teza</option>
+        <option value="deleteStire">Sterge stire</option>
+        <option value="modifyElev">Modifica elev</option>
+        <option value="modifyTeza">Modifica teza</option>
+        <option value="modifyPurtare">Modifica nota purtare</option>
+    </select></form>
+    <div id="selectedActiuneForm"></div><div id="querryResponse"></div>
+</div>
+<script>
+
+    function check(){
+        var actiune = document.getElementById("actiune").value;
+        var dataString ='actiune='+actiune;
+        $.ajax({
+            type:"post",
+            url:"generateActiuneForm.php",
+            data:dataString,
+            cache:false,
+            success:function(html){
+                $('#selectedActiuneForm').html(html);
+            }
+        })
+        return false;
+    }
+    
+    function dbQuerryAction(){
+        var actiune = document.getElementById("actiune").value;
+        if(document.getElementsByName("numeElev")[0] != null)
+        var numeElev = document.getElementsByName("numeElev")[0].value;
+        if(document.getElementsByName("orasElev")[0] != null)
+        var orasElev = document.getElementsByName("orasElev")[0].value;
+        if(document.getElementsByName("sexElev")[0] != null)
+        var sexElev = document.getElementsByName("sexElev")[0].value;
+        if(document.getElementsByName("tlfElev")[0] != null)
+        var tlfElev = document.getElementsByName("tlfElev")[0].value;
+        if(document.getElementsByName("birthdayElev")[0] != null)
+        var birthdayElev = document.getElementsByName("birthdayElev")[0].value;
+        if(document.getElementsByName("idCurs")[0] != null)
+        var idCurs = document.getElementsByName("idCurs")[0].value;
+        if(document.getElementsByName("nota")[0] != null)
+        var nota = document.getElementsByName("nota")[0].value;
+        if(document.getElementsByName("dataAbsenta")[0] != null)
+        var dataAbsenta = document.getElementsByName("dataAbsenta")[0].value;
+        if(document.getElementsByName("teza")[0] != null)
+        var teza = document.getElementsByName("teza")[0].value;
+        if(document.getElementsByName("idElev")[0] != null)
+        var idElev = document.getElementsByName("idElev")[0].value;
+        if(document.getElementsByName("notaPurtare")[0] != null)
+        var notaPurtare = document.getElementsByName("notaPurtare")[0].value;
+        if(document.getElementsByName("idClasa")[0] != null)
+        var idClasa = document.getElementsByName("idClasa")[0].value;
+        if(document.getElementsByName("motivat")[0] != null)
+        var motivat = document.getElementsByName("motivat")[0].value;
+        if(document.getElementsByName("titluStire")[0] != null)
+        var titluStire = document.getElementsByName("titluStire")[0].value;
+        if(document.getElementsByName("descriereStire")[0] != null)
+        var descriereStire = document.getElementsByName("descriereStire")[0].value;
+        if(document.getElementsByName("thumbnailStire")[0] != null)
+        var thumbnailStire = document.getElementsByName("thumbnailStire")[0].value;
+        if(document.getElementsByName("sursaStire")[0] != null)
+        var sursaStire = document.getElementsByName("sursaStire")[0].value;
+        if(document.getElementsByName("idStire")[0] != null)
+        var idStire = document.getElementsByName("idStire")[0].value;
+        $.ajax({
+            type:"post",
+            url:"adminpanelfunctions.php",
+            data:{actiune:actiune, numeElev:numeElev, orasElev:orasElev, sexElev:sexElev, tlfElev:tlfElev, birthdayElev:birthdayElev, idCurs:idCurs, nota:nota, dataAbsenta:dataAbsenta, teza:teza, idElev:idElev, notaPurtare:notaPurtare, idClasa:idClasa, motivat:motivat, titluStire:titluStire, descriereStire:descriereStire, thumbnailStire:thumbnailStire, sursaStire:sursaStire, idStire:idStire},
+            cache:false,
+            success:function(html){
+                $('#querryResponse').html(html);
+            }
+        })
+        setTimeout(() => {
+            var response = document.getElementById("querryResponse")
+            response.innerHTML = "";
+        }, 3000);
+    }
+    </script>
